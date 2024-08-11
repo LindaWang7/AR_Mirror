@@ -1,6 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
 
+"""
+1. load mirror: allow mirror to run python code
+2. design python output interface
+3. connect api to code, code to mirror
+"""
+
+
+
 # Given JSON data
 data = {
     "0": "@strikexpe: Maybe a small belt for the shorts to add some definition? ",
