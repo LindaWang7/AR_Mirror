@@ -44,6 +44,7 @@ def extract_json_from_html(html_content):
         return None
 
 def main():
+    #https://pre.cm/API.htm
     url = "https://pre.cm/scribe.php"
     image_path = "full_body.jpg"
     form_data = {
@@ -67,7 +68,9 @@ def main():
         views = response_data.get("views", 0)
         comments = response_data.get("comments", 0)
 
+        # print(response_data + "," + likes  + ","+ views + "," + comments)
         print(f"Likes: {likes}, Views: {views}, Comments: {comments}")
-
+    
+        return response_data
 if __name__ == "__main__":
     main()
