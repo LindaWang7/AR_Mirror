@@ -13,7 +13,6 @@ import api_connection
 #JSON data returned from api_connection.py
 data = api_connection.main()
 
-
 # Function to load comments into the text box
 def load_comments(text_widget, data):
     for key, comment in data.items():
