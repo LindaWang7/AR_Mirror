@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import "./HeartWithNumber.css";
 
 const HeartWithNumber = () => {
   const [count, setCount] = useState(0);
@@ -22,8 +23,8 @@ const HeartWithNumber = () => {
   }, [targetNumber]);
 
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <FaHeart style={{ color: "red", marginRight: "8px" }} />
+    <div className="heart-icon">
+      <FaHeart />
       <span>{count}</span>
     </div>
   );

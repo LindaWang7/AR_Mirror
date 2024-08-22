@@ -1,38 +1,41 @@
-.App {
-  text-align: center;
+/* App.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #1e272e; /* Set the background color to match the comment section */
+  color: #ecf0f1;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding-bottom: 200px; /* Ensure space for the enlarged comment section */
+  background-color: #1e272e; /* Match background color */
 }
 
-.App-link {
-  color: #61dafb;
+.content {
+  text-align: center;
+  padding: 20px;
+  background-color: #2f3640; /* Slightly lighter background for content box */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adjusted shadow for better visibility */
+  margin: 20px;
+  width: 80%;
+  max-width: 800px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  color: #ecf0f1;
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.heart-icon {
+  margin-bottom: 20px;
 }
