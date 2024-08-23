@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import "./HeartWithNumber.css";
 
-const HeartWithNumber = () => {
+const HeartWithNumber = ({ likes }) => {
   const [count, setCount] = useState(0);
-  const targetNumber = 12345;
   const duration = 3000; // 3 seconds
 
   useEffect(() => {
     let start = 0;
-    const increment = targetNumber / (duration / 10);
+    const increment = likes / (duration / 10);
     const interval = setInterval(() => {
       start += increment;
-      if (start >= targetNumber) {
-        setCount(targetNumber);
+      if (start >= likes) {
+        setCount(likes);
         clearInterval(interval);
       } else {
-        setCount(Math.floor(start));
+        setCount(Math.floor(start));q
+        
       }
     }, 10);
     return () => clearInterval(interval);
-  }, [targetNumber]);
+  }, [likes]);
 
   return (
     <div className="heart-icon">
