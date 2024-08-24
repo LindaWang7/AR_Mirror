@@ -15,7 +15,7 @@ const HeartWithNumber = ({ likes }) => {
         setCount(likes);
         clearInterval(interval);
       } else {
-        setCount(Math.floor(start));q
+        setCount(Math.floor(start));
         
       }
     }, 10);
