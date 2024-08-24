@@ -91,11 +91,15 @@ def main():
             response_data = extract_json_from_html(html_content, save_path=save_path_j, file_name=f"{os.path.basename(image_path).split('.')[0]}_response.json")
 
             if response_data:
-                # Print the extracted JSON data
+                # If successful, print the extracted JSON data and wait for 20 seconds
                 print(response_data)
-
-        # Wait for a certain interval before capturing the next photo
-        time.sleep(5)
+                time.sleep(20)
+            else:
+                # If not successful, wait for 5 seconds
+                time.sleep(5)
+        else:
+            # If image capture fails, wait for 5 seconds before retrying
+            time.sleep(5)
 
 if __name__ == "__main__":
     main()
