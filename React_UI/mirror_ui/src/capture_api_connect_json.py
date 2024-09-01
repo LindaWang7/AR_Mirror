@@ -71,8 +71,8 @@ def main():
     #https://pre.cm/API.htm
     #https://pre.cm/scribe.php
     url = "https://pre.cm/scribe.php"
-    save_path = r'C:\Users\zhang\OneDrive\Pictures\New_folder'
-    save_path_j = r'C:\Users\zhang\OneDrive\Pictures\New_folder\json'
+    save_path = r'/Users/christykuang/AR_Mirror/react_UI/mirror_ui/public/Pictures/New_folder'
+    save_path_j = r'/Users/christykuang/AR_Mirror/react_UI/mirror_ui/public/Pictures/New_folder/json'
     form_data = {
         "socialfollow": "1000000",
         "socialtype": "fashion",
@@ -88,7 +88,7 @@ def main():
             html_content = upload_image(url, image_path, form_data, delete_after_upload=False)
 
             # Extract JSON data from the HTML response
-            response_data = extract_json_from_html(html_content, save_path=save_path_j, file_name=f"{os.path.basename(image_path).split('.')[0]}_response.json")
+            response_data = extract_json_from_html(html_content, save_path=save_path_j, file_name=f"image_response.json")
 
             if response_data:
                 # If successful, print the extracted JSON data and wait for 20 seconds
