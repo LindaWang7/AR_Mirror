@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HeartWithNumber from "./components/HeartWithNumber";
 import CommentSection from "./components/CommentSection";
+import ImageDisplay from "./components/ImageDisplay"; // Import the image display component
 import "./App.css";
 
 function App() {
@@ -25,10 +26,16 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="app">
       {apiData && (
         <>
+          {/* Display the heart with likes */}
           <HeartWithNumber likes={apiData.likes} />
+          
+          {/* Display the image from the JSON file */}
+          <ImageDisplay imageUrl={apiData.image} />
+          
+          {/* Display the comment section */}
           <CommentSection commentsData={apiData} />
         </>
       )}

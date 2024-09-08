@@ -5,14 +5,14 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 200px; /* Increased height to accommodate larger text */
+    height: 600px; /* Change here for comment starting pos */
     overflow: hidden;
     background-color: #1e272e; /* Dark background color */
     color: #ecf0f1;
     font-family: 'Roboto', sans-serif;
     padding: 15px 20px;
     box-sizing: border-box;
-    border-top: 3px solid #1e272e;
+    border-top: 3px solid #1e272e; /* Stylish red border at the top */
   }
   
   .comment-section p {
@@ -23,7 +23,12 @@
   }
   
   .comment-section p::before {
-    content: "💬 "; /* Add a chat icon before each comment */
+    content: ""; /* Add a chat icon before each comment */
     color: #ecf0f1;
+  }
+  
+  .username {
+    font-weight: bold;
+    color: #ecf0f1; /* Optional: Change username color if needed */
   }
   
