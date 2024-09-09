@@ -51,6 +51,15 @@ def extract_json_from_html(html_content, save_path='C:/path/to/save', file_name=
     start_index = html_content.find('{')
     end_index = html_content.rfind('}')
 
+    # Check for specific non-JSON message in response
+    if "Person not found!" in html_content:
+        json_data = {"error": "Person not found!"}
+        os.makedirs(save_path, exist_ok=True)
+        with open(os.path.join(save_path, file_name), 'w') as json_file:
+            json.dump(json_data, json_file, indent=4)
+        print("No person found in the image, message saved as JSON.")
+        return json_data
+
     if start_index != -1 and end_index != -1:
         json_string = html_content[start_index:end_index + 1].strip()
         try:
@@ -66,7 +75,7 @@ def extract_json_from_html(html_content, save_path='C:/path/to/save', file_name=
     else:
         print("Failed to find JSON data in the HTML response.")
         return None
-
+    
 def main():
     #https://pre.cm/API.htm
     #https://pre.cm/scribe.php
