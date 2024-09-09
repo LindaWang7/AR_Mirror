@@ -71,8 +71,8 @@ def main():
     #https://pre.cm/API.htm
     #https://pre.cm/scribe.php
     url = "https://pre.cm/scribe.php"
-    save_path = r'/Users/christykuang/AR_Mirror/react_UI/mirror_ui/public/Pictures/New_folder'
-    save_path_j = r'/Users/christykuang/AR_Mirror/react_UI/mirror_ui/public/Pictures/New_folder/json'
+    save_path = r'C:\Users\Administrator\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder'
+    save_path_j = r'C:\Users\Administrator\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder\json'
     form_data = {
         "socialfollow": "1000000",
         "socialtype": "fashion",
