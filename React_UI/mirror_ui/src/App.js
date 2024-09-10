@@ -10,8 +10,8 @@ function App() {
   const [showCaptureScreen, setShowCaptureScreen] = useState(true); // Start with capture screen
   const [timeUntilNextCapture, setTimeUntilNextCapture] = useState(20); // Timer for next capture
 
+  // Fetching the data from the JSON file after rendering
   useEffect(() => {
-    // Fetch data from JSON file
     const fetchData = async () => {
       try {
         const response = await fetch('/Pictures/New_folder/json/image_response.json');
@@ -29,29 +29,27 @@ function App() {
   }, []);
 
   useEffect(() => {
+    //if it's not the capture screen (1,2,3 Smile)
     if (!showCaptureScreen) {
       // Countdown for the next capture
       const interval = setInterval(() => {
-        setTimeUntilNextCapture((prev) => (prev > 0 ? prev - 1 : 20));
+        setTimeUntilNextCapture((countdown) => {
+          if (countdown > 0) {
+            return countdown - 1;  // Decrease the timer by 1 if it's greater than 0
+          } else {
+            setShowCaptureScreen(true); // Show the capture screen when the timer reaches 0
+            return 20; // Reset the timer for the next cycle
+          }
+        });
       }, 1000);
 
       return () => clearInterval(interval); // Clear interval on unmount
     }
   }, [showCaptureScreen]);
 
-  useEffect(() => {
-    // Start the automatic 20 second capture timer
-    const captureInterval = setInterval(() => {
-      setShowCaptureScreen(true); // Show the capture screen every 20 seconds
-    }, 20000);
-
-    return () => clearInterval(captureInterval); // Clear interval on component unmount
-  }, []);
-
   // This function gets called after the countdown ends and switches to comments and hearts
   const onCaptureComplete = () => {
-    setShowCaptureScreen(false);
-    setTimeUntilNextCapture(20); // Reset the timer for next capture
+    setShowCaptureScreen(false); // Hide the capture screen and show the main content
   };
 
   return (
@@ -60,16 +58,9 @@ function App() {
         <CaptureScreen onCapture={onCaptureComplete} />
       ) : (
         <>
-          {/* Display the heart with likes */}
           {apiData && <HeartWithNumber likes={apiData.likes} />}
-
-          {/* Display the image from the JSON file */}
           {apiData && <ImageDisplay imageUrl={apiData.image} />}
-
-          {/* Display the comment section */}
           {apiData && <CommentSection commentsData={apiData} />}
-
-          {/* Timer in the bottom right corner */}
           <div className="timer">
             Next capture in: {timeUntilNextCapture}s
           </div>
