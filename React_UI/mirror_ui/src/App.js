@@ -28,6 +28,17 @@ function App() {
     fetchData();
   }, []);
 
+  // Call Python backend
+  const callPythonScript = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/run-script');
+      const result = await response.json();
+      console.log("finished running python backend");
+    } catch (error) {
+      console.error("Failed to call Python script:", error);
+    }
+  };
+
   useEffect(() => {
     //if it's not the capture screen (1,2,3 Smile)
     if (!showCaptureScreen) {
@@ -50,6 +61,7 @@ function App() {
   // This function gets called after the countdown ends and switches to comments and hearts
   const onCaptureComplete = () => {
     setShowCaptureScreen(false); // Hide the capture screen and show the main content
+    callPythonScript();
   };
 
   return (

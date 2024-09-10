@@ -1,9 +1,14 @@
+from flask import Flask, jsonify
+from flask_cors import CORS
 import cv2
 import time
 import os
 import requests
 import json
 import logging
+
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Set up logging
 def setup_logging(log_path='C:/path/to/logs/logfile.log'):
@@ -12,32 +17,24 @@ def setup_logging(log_path='C:/path/to/logs/logfile.log'):
                         format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
 def capture_photo(save_path='C:/path/to/save'):
-    # Ensure the save directory exists
     os.makedirs(save_path, exist_ok=True)
-
-    # Start the camera
     cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
         print("Cannot open camera")
         return None
 
-    # Capture a single frame
     ret, frame = cap.read()
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
         cap.release()
         return None
 
-    # File path for the image
     img_name = f"{time.strftime('%Y%m%d_%H%M%S')}.jpeg"
     full_path = os.path.join(save_path, img_name)
 
-    # Save the frame as JPEG file
     cv2.imwrite(full_path, frame)
     print(f"Saved {full_path}")
-
-    # Release the capture
     cap.release()
     cv2.destroyAllWindows()
 
@@ -47,7 +44,7 @@ def upload_image(url, image_path, form_data, delete_after_upload=False):
     with open(image_path, "rb") as image_file:
         files = {"imagepageim[]": image_file}
         response = requests.post(url, data=form_data, files=files)
-    
+
     if delete_after_upload:
         os.remove(image_path)
         print(f"Deleted {image_path}")
@@ -58,7 +55,6 @@ def extract_json_from_html(html_content, save_path='C:/path/to/save', file_name=
     start_index = html_content.find('{')
     end_index = html_content.rfind('}')
 
-    # Check for specific non-JSON message in response
     if "Person not found!" in html_content:
         json_data = {"error": "Person not found!"}
         os.makedirs(save_path, exist_ok=True)
@@ -83,11 +79,7 @@ def extract_json_from_html(html_content, save_path='C:/path/to/save', file_name=
         print("Failed to find JSON data in the HTML response.")
         return None
 
-    #https://pre.cm/API.htm
-    #https://pre.cm/scribe.php
-
 def main():
-    # Setup log file path
     print("=====RUNNING CAPTURE====")
     log_path = r'/Users/lindawang/Documents/AI Mirror/React_UI/mirror_ui/public/Pictures/New_folder/logs/capture_log.log'
     setup_logging(log_path)
@@ -101,32 +93,31 @@ def main():
         "api": "api",
     }
 
-    # Log the attempt to capture a photo
     logging.info("Attempting to capture a new photo")
-
-    # Wait for 5 seconds before capturing a photo
     time.sleep(5)
 
-    # Capture a new photo
     image_path = capture_photo(save_path=save_path)
 
     if image_path:
-        # Upload image and get the HTML response
         html_content = upload_image(url, image_path, form_data, delete_after_upload=False)
-
-        # Extract JSON data from the HTML response
         response_data = extract_json_from_html(html_content, save_path=save_path_j, file_name=f"image_response.json")
 
         if response_data:
-            # If successful, print the extracted JSON data and wait for 20 seconds
             print(response_data)
             time.sleep(20)
         else:
-            # If not successful, wait for 5 seconds
             time.sleep(5)
     else:
-        # If image capture fails, wait for 5 seconds before retrying
         time.sleep(5)
 
-if __name__ == "__main__":
-    main()
+# Flask route to call the main function
+@app.route('/run-script', methods=['GET'])
+def run_script():
+    try:
+        main()  # Call the main function when this route is accessed
+        return jsonify({"status": "Script executed successfully"}), 200
+    except Exception as e:
+        return jsonify({"status": "Error", "message": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
