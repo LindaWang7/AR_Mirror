@@ -3,13 +3,6 @@ import time
 import os
 import requests
 import json
-import logging
-
-# Set up logging
-def setup_logging(log_path='C:/path/to/logs/logfile.log'):
-    os.makedirs(os.path.dirname(log_path), exist_ok=True)
-    logging.basicConfig(filename=log_path, level=logging.INFO,
-                        format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
 def capture_photo(save_path='C:/path/to/save'):
     # Ensure the save directory exists
@@ -82,7 +75,8 @@ def extract_json_from_html(html_content, save_path='C:/path/to/save', file_name=
     else:
         print("Failed to find JSON data in the HTML response.")
         return None
-
+    
+def capture_img_one_time():
     #https://pre.cm/API.htm
     #https://pre.cm/scribe.php
 
@@ -93,19 +87,13 @@ def main():
     setup_logging(log_path)
 
     url = "https://pre.cm/scribe.php"
-    save_path = r'/Users/lindawang/Documents/AI Mirror/React_UI/mirror_ui/public/Pictures/New_folder'
-    save_path_j = r'/Users/lindawang/Documents/AR_Mirror/react_UI/mirror_ui/public/Pictures/New_folder/json'
+    save_path = r'C:\Users\Administrator\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder'
+    save_path_j = r'C:\Users\Administrator\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder\json'
     form_data = {
         "socialfollow": "1000000",
         "socialtype": "fashion",
         "api": "api",
     }
-
-    # Log the attempt to capture a photo
-    logging.info("Attempting to capture a new photo")
-
-    # Wait for 5 seconds before capturing a photo
-    time.sleep(5)
 
     # Capture a new photo
     image_path = capture_photo(save_path=save_path)
@@ -118,15 +106,15 @@ def main():
         response_data = extract_json_from_html(html_content, save_path=save_path_j, file_name=f"image_response.json")
 
         if response_data:
-            # If successful, print the extracted JSON data and wait for 20 seconds
+                # If successful, print the extracted JSON data and wait for 20 seconds
             print(response_data)
-            time.sleep(20)
+            return True
         else:
-            # If not successful, wait for 5 seconds
-            time.sleep(5)
+            print(response_data)
+            return False
     else:
-        # If image capture fails, wait for 5 seconds before retrying
-        time.sleep(5)
+            # If image capture fails, wait for 5 seconds before retrying
+        return None
 
 if __name__ == "__main__":
-    main()
+    capture_img_one_time()

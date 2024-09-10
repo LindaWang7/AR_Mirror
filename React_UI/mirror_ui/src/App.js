@@ -3,6 +3,7 @@ import HeartWithNumber from './components/HeartWithNumber';
 import CommentSection from './components/CommentSection';
 import ImageDisplay from './components/ImageDisplay';
 import CaptureScreen from './components/CaptureScreen';
+import NoPersonFound from './components/NoPersonFound'; // Import the new component
 import './App.css';
 
 function App() {
@@ -70,9 +71,23 @@ function App() {
         <CaptureScreen onCapture={onCaptureComplete} />
       ) : (
         <>
-          {apiData && <HeartWithNumber likes={apiData.likes} />}
-          {apiData && <ImageDisplay imageUrl={apiData.image} />}
-          {apiData && <CommentSection commentsData={apiData} />}
+          {/* Conditionally render NoPersonFound if no person is detected */}
+          {apiData === "no person found" ? (
+            <NoPersonFound />
+          ) : (
+            <>
+              {/* Display the heart with likes */}
+              {apiData && <HeartWithNumber likes={apiData.likes} />}
+
+              {/* Display the image from the JSON file */}
+              {apiData && <ImageDisplay imageUrl={apiData.image} />}
+
+              {/* Display the comment section */}
+              {apiData && <CommentSection commentsData={apiData} />}
+            </>
+          )}
+
+          {/* Timer in the bottom right corner */}
           <div className="timer">
             Next capture in: {timeUntilNextCapture}s
           </div>
