@@ -75,16 +75,10 @@ def extract_json_from_html(html_content, save_path='C:/path/to/save', file_name=
     else:
         print("Failed to find JSON data in the HTML response.")
         return None
-    
-def capture_img_one_time():
-    #https://pre.cm/API.htm
-    #https://pre.cm/scribe.php
 
 def main():
     # Setup log file path
     print("=====RUNNING CAPTURE====")
-    log_path = r'/Users/lindawang/Documents/AI Mirror/React_UI/mirror_ui/public/Pictures/New_folder/logs/capture_log.log'
-    setup_logging(log_path)
 
     url = "https://pre.cm/scribe.php"
     save_path = r'C:\Users\Administrator\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder'
