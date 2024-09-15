@@ -81,12 +81,12 @@ def extract_json_from_html(html_content, save_path='C:/path/to/save', file_name=
 
 def main():
     print("=====RUNNING CAPTURE====")
-    log_path = r'/Users/lindawang/Documents/AI Mirror/React_UI/mirror_ui/public/Pictures/New_folder/logs/capture_log.log'
+    log_path = r'/Users/christykuang/AI Mirror/React_UI/mirror_ui/public/Pictures/New_folder/logs/capture_log.log'
     setup_logging(log_path)
 
     url = "https://pre.cm/scribe.php"
-    save_path = r'/Users/lindawang/Documents/AI Mirror/React_UI/mirror_ui/public/Pictures/New_folder'
-    save_path_j = r'/Users/lindawang/Documents/AR_Mirror/react_UI/mirror_ui/public/Pictures/New_folder/json'
+    save_path = r'/Users/christykuang/AI Mirror/React_UI/mirror_ui/public/Pictures/New_folder'
+    save_path_j = r'/Users/christykuang/AR_Mirror/react_UI/mirror_ui/public/Pictures/New_folder/json'
     form_data = {
         "socialfollow": "1000000",
         "socialtype": "fashion",
