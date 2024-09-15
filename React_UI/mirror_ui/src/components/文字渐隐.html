@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+            background-color: #000;
+        }
+
+        .box {
+            height: 720px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        ul {
+            list-style: none;
+            position: absolute;
+            /* transition: .35s; */
+        }
+
+        li {
+            padding: 10px;
+            color: #fff;
+            transition: .35s;
+        }
+    </style>
+</head>
+<div class="box">
+    <ul id="container">
+
+    </ul>
+</div>
+
+
+<body>
+    <script>
+        let fontList = [
+            "1@foodieextra: The vibrant fruit bowl adds a splash of color to the kitchen! 🍎🍌",
+            "2@travelbug: Those travel magazines really give off adventurous vibes. 🌍✈️",
+            "3@artlover: The abstract painting on the wall is so intriguing! 🎨🖼️",
+            "4@techie: Love the sleek design of that modern desk lamp. 💡👌",
+            "5@cozyhome: The knitted throw on the couch looks so warm and inviting! 🧣✨",
+            "6@plantfan: That indoor plant really brightens up the room. 🌿💚",
+            "7@bookworm: The reading nook looks like the perfect spot to unwind with a good book. 📚🛋️",
+            "8@musiclover: Those vinyl records on display are a cool retro touch! 🎶💿",
+            "9@diyenthusiast: The homemade wall art is such a creative idea! 🎨👩‍🎨",
+            "10@chicstyle: The mix of textures in the room adds such a stylish touch. 🛋️🎉",
+            "11@retrofan: That vintage lamp is giving all the right vibes! 🕯️💛",
+            "12@minimalist: The clean lines and simplicity of the furniture are perfect. ✨🖤",
+            "13@fashionista: The bold patterned rug really makes the space pop. 🧩🌟",
+            "14@craftyguru: Consider adding a handmade vase for an extra personal touch. 🌸🖌️",
+            "15@designfan: The geometric patterns on the pillows are on trend! 🔺💠",
+            "16@modernist: Those sleek modern chairs add a great contrast to the room. 🪑👍",
+            "17@ecolover: A few more potted plants would make this space even more refreshing! 🌱🌿",
+            "18@neutrallover: The neutral color palette creates such a serene atmosphere. 🤍🖤",
+            "19@elegantdecor: The crystal chandelier adds a touch of elegance to the room. 💎✨",
+            "20@bohochic: The eclectic mix of decor pieces is giving boho chic vibes! 🧿🌼",
+        ]
+        let container = document.getElementById("container")
+        let list = '';
+        fontList.forEach((item, id) => {
+            list += `<li>${item}</li> `
+        })
+        container.innerHTML = list + list
+
+        let PositionTop = -720;
+
+        function move() {
+            PositionTop += 0.1
+            container.style.top = PositionTop + 'px';
+            if (PositionTop >= 0) {
+                PositionTop = -720;
+            }
+            let list = container.querySelectorAll('li');
+            list.forEach((mlNode, index) => {
+                // console.log(mlNode.getBoundingClientRect().bottom, index)
+                mlNode.innerText = fontList[index % 20] + ((720 / mlNode.getBoundingClientRect().bottom - 1) * 2).toFixed(2)
+                if (((720 / mlNode.getBoundingClientRect().bottom - 1) * 2) < 0.8) {
+                    mlNode.style.color = `rgba(255,255,255,${((720 / mlNode.getBoundingClientRect().bottom - 1) * 2)})`
+                } else {
+                    mlNode.style.color = `rgba(255,255,255,1)`
+                }
+            })
+        }
+        setInterval(move, 1)
+    </script>
+</body>
+
+</html>

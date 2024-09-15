@@ -1,34 +1,52 @@
-/* CommentSection.css */
-
 .comment-section {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-  width: 100%;
-    height: 600px; /* Change here for comment starting pos */
-    overflow: hidden;
-    background-color: #1e272e; /* Dark background color */
-  color: #ecf0f1;
-    font-family: 'Roboto', sans-serif;
-    padding: 15px 20px;
-  box-sizing: border-box;
-    border-top: 3px solid #1e272e; /* Stylish red border at the top */
+  width: auto;
+  height: 360px;
+  overflow: hidden;
+  position: relative;
+  top: 100px;
+}
+s
+.comment-container {
+  list-style: none;
+  position: absolute; /* Smooth transition when scrolling */
 }
 
-.comment-section p {
-    margin: 0;
-    font-size: 18px; /* Increased font size */
-    line-height: 1.8;
-    color: #bdc3c7;
+.comment-container > p {
+  height: 36px;
+  color: #fff;
+  transition: 0.35s;
 }
 
-  .comment-section p::before {
-    content: ""; /* Add a chat icon before each comment */
-    color: #ecf0f1;
+.comment {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.8; /* Ensures proper spacing */
+  color: #bdc3c7;
+  opacity: 1;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+.fade-out {
+  animation: fadeOut 1s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  
-  .username {
-    font-weight: bold;
-    color: #ecf0f1; /* Optional: Change username color if needed */
+  100% {
+    opacity: 1;
   }
-  
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

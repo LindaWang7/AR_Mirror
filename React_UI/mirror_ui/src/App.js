@@ -8,8 +8,7 @@ import './App.css';
 
 function App() {
   const [apiData, setApiData] = useState(null);
-  const [showCaptureScreen, setShowCaptureScreen] = useState(true); // Start with capture screen
-  const [timeUntilNextCapture, setTimeUntilNextCapture] = useState(20); // Timer for next capture
+  const [showCaptureScreen, setShowCaptureScreen] = useState(false); // Initially don't show capture screen
 
   // Fetching the data from the JSON file after rendering
   useEffect(() => {
@@ -40,29 +39,16 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    //if it's not the capture screen (1,2,3 Smile)
-    if (!showCaptureScreen) {
-      // Countdown for the next capture
-      const interval = setInterval(() => {
-        setTimeUntilNextCapture((countdown) => {
-          if (countdown > 0) {
-            return countdown - 1;  // Decrease the timer by 1 if it's greater than 0
-          } else {
-            setShowCaptureScreen(true); // Show the capture screen when the timer reaches 0
-            return 20; // Reset the timer for the next cycle
-          }
-        });
-      }, 1000);
+  // Handle the capture button click
+  const handleCaptureButtonClick = () => {
+    console.log("clicked")
+    setShowCaptureScreen(true); // Show the capture screen when the button is clicked
+  };
 
-      return () => clearInterval(interval); // Clear interval on unmount
-    }
-  }, [showCaptureScreen]);
-
-  // This function gets called after the countdown ends and switches to comments and hearts
+  // This function gets called after the "3, 2, 1, Smile!" countdown ends
   const onCaptureComplete = () => {
     setShowCaptureScreen(false); // Hide the capture screen and show the main content
-    callPythonScript();
+    callPythonScript(); // Call the Python script after the capture
   };
 
   return (
@@ -87,9 +73,11 @@ function App() {
             </>
           )}
 
-          {/* Timer in the bottom right corner */}
-          <div className="timer">
-            Next capture in: {timeUntilNextCapture}s
+          {/* Capture button */}
+          <div className="capture-button-container">
+            {/* <button onClick={handleCaptureButtonClick} className="capture-button">
+              Capture Image
+            </button> */}
           </div>
         </>
       )}

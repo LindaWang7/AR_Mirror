@@ -9,7 +9,7 @@ def capture_photo(save_path='C:/path/to/save'):
     os.makedirs(save_path, exist_ok=True)
 
     # Start the camera
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
 
     if not cap.isOpened():
         print("Cannot open camera")
@@ -111,4 +111,4 @@ def main():
         return None
 
 if __name__ == "__main__":
-    capture_img_one_time()
+    main()

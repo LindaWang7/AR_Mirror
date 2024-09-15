@@ -52,3 +52,7 @@
 2024-09-10 11:37:54 - 127.0.0.1 - - [10/Sep/2024 11:37:54] "GET /run-script HTTP/1.1" 200 -
 2024-09-10 11:38:11 - Attempting to capture a new photo
 2024-09-10 11:38:31 - 127.0.0.1 - - [10/Sep/2024 11:38:31] "GET /run-script HTTP/1.1" 200 -
+2024-09-10 11:38:48 - 127.0.0.1 - - [10/Sep/2024 11:38:48] "GET /run-script HTTP/1.1" 200 -
+2024-09-10 11:38:48 - Attempting to capture a new photo
+2024-09-10 13:38:40 - Attempting to capture a new photo
+2024-09-10 13:38:54 - Attempting to capture a new photo
