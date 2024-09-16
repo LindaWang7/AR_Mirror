@@ -39,10 +39,10 @@ function App() {
     }
   };
 
-  // Handle the capture button click
-  const handleCaptureButtonClick = () => {
-    console.log("clicked")
-    setShowCaptureScreen(true); // Show the capture screen when the button is clicked
+  // Handle the capture action triggered by the right arrow key
+  const handleCapture = () => {
+    console.log("Right arrow key pressed - starting capture");
+    setShowCaptureScreen(true); // Show the capture screen when the right arrow key is pressed
   };
 
   // This function gets called after the "3, 2, 1, Smile!" countdown ends
@@ -50,6 +50,23 @@ function App() {
     setShowCaptureScreen(false); // Hide the capture screen and show the main content
     callPythonScript(); // Call the Python script after the capture
   };
+
+  // Use useEffect to listen for keyboard events
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.keyCode === 9) { // Right arrow key code is 13
+        handleCapture();
+      }
+    };
+
+    // Attach the event listener
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <div className="app">
@@ -73,12 +90,7 @@ function App() {
             </>
           )}
 
-          {/* Capture button */}
-          <div className="capture-button-container">
-            {/* <button onClick={handleCaptureButtonClick} className="capture-button">
-              Capture Image
-            </button> */}
-          </div>
+          {/* No capture button now, as it's triggered by the right arrow key */}
         </>
       )}
     </div>
