@@ -77,7 +77,7 @@ function App() {
   // Use useEffect to listen for keyboard events
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.keyCode === 39) { // Right arrow key code is 39
+      if (event.keyCode === 13) { // Right arrow key code is 39
         handleCapture();
       }
     };

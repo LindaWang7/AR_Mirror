@@ -13,7 +13,7 @@ CORS(app)  # Enable CORS for all routes
 def capture_photo(save_path='C:/path/to/save'):
     os.makedirs(save_path, exist_ok=True)
     print("camera open")
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     print("camera opened")
 
     if not cap.isOpened():
@@ -81,8 +81,8 @@ def main():
     print("=====RUNNING CAPTURE====")
 
     url = "https://pre.cm/scribe.php"
-    save_path = r'D:\Vscode\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder'
-    save_path_j = r'D:\Vscode\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder\json'
+    save_path = r'C:\Users\Administrator\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder'
+    save_path_j = r'C:\Users\Administrator\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder\json'
     form_data = {
         "socialfollow": "1000000",
         "socialtype": "fashion",
