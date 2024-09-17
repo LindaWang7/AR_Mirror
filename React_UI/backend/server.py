@@ -12,12 +12,15 @@ CORS(app)  # Enable CORS for all routes
 
 def capture_photo(save_path='C:/path/to/save'):
     os.makedirs(save_path, exist_ok=True)
+    print("camera open")
     cap = cv2.VideoCapture(0)
+    print("camera opened")
 
     if not cap.isOpened():
         print("Cannot open camera")
         return None
-
+    
+    print("camera capture")
     ret, frame = cap.read()
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
@@ -27,6 +30,7 @@ def capture_photo(save_path='C:/path/to/save'):
     img_name = f"{time.strftime('%Y%m%d_%H%M%S')}.jpeg"
     full_path = os.path.join(save_path, img_name)
 
+    print("saving")
     cv2.imwrite(full_path, frame)
     print(f"Saved {full_path}")
     cap.release()
@@ -77,8 +81,8 @@ def main():
     print("=====RUNNING CAPTURE====")
 
     url = "https://pre.cm/scribe.php"
-    save_path = r'/Users/christykuang/AI Mirror/React_UI/mirror_ui/public/Pictures/New_folder'
-    save_path_j = r'/Users/christykuang/AR_Mirror/react_UI/mirror_ui/public/Pictures/New_folder/json'
+    save_path = r'D:\Vscode\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder'
+    save_path_j = r'D:\Vscode\AR_Mirror\React_UI\mirror_ui\public\Pictures\New_folder\json'
     form_data = {
         "socialfollow": "1000000",
         "socialtype": "fashion",
@@ -86,21 +90,34 @@ def main():
     }
 
     logging.info("Attempting to capture a new photo")
-    time.sleep(5)
 
+    print("capturing")
+    
     image_path = capture_photo(save_path=save_path)
-
+    
+    print(image_path)
+    
     if image_path:
+        # Upload image and get the HTML response
+        print("uploading")
+
         html_content = upload_image(url, image_path, form_data, delete_after_upload=False)
+
+        # Extract JSON data from the HTML response
+        print("gathering data")
+        
         response_data = extract_json_from_html(html_content, save_path=save_path_j, file_name=f"image_response.json")
 
+        print("finished")
+
         if response_data:
+                # If successful, print the extracted JSON data and wait for 20 seconds
             print(response_data)
-            time.sleep(20)
         else:
-            time.sleep(5)
+            return None
     else:
-        time.sleep(5)
+            # If image capture fails, wait for 5 seconds before retrying
+        return None
 
 # Flask route to call the main function
 @app.route('/run-script', methods=['GET'])
