@@ -4,19 +4,8 @@ import CommentSection from './components/CommentSection';
 import ImageDisplay from './components/ImageDisplay';
 import CaptureScreen from './components/CaptureScreen';
 import NoPersonFound from './components/NoPersonFound'; // Import the new component
+import DottedCircleLoader from './components/DottedCircleLoader';
 import './App.css';
-
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#1e272e',
-    color: '#ecf0f1',
-    fontSize: '4rem',
-  },
-};
 
 function App() {
   const [apiData, setApiData] = useState(null);
@@ -44,18 +33,18 @@ function App() {
   // Call Python backend
   const callPythonScript = async () => {
     try {
-      setLoading(true); // Set loading to true before calling the Python script
-
       // Call the Python backend
       const response = await fetch('http://127.0.0.1:5000/run-script');
       const result = await response.json();
+
+      setLoading(true); // Set loading to true after calling the Python script
       
-      // Simulate a delay of 7 seconds after the response
+      // Simulate a delay of 12 seconds after the response
       setTimeout(() => {
-        setLoading(false); // Stop loading after 7 seconds
+        setLoading(false); // Stop loading after 12 seconds
         setApiData(result); // Update the UI with the new data
         console.log("Finished running Python backend");
-      }, 7000);
+      }, 12000);
     } catch (error) {
       console.error("Failed to call Python script:", error);
       setLoading(false); // Stop loading if there's an error
@@ -77,7 +66,7 @@ function App() {
   // Use useEffect to listen for keyboard events
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.keyCode === 13) { // Right arrow key code is 39
+      if (event.keyCode === 39) { // Right arrow key code is 39
         handleCapture();
       }
     };
@@ -93,11 +82,7 @@ function App() {
 
   // Render the loading screen when loading is true
   if (loading) {
-    return (
-      <div style={styles.container}>
-        Loading...
-      </div>
-    );
+    return <DottedCircleLoader loading={loading} />; // Use the DottedCircleLoader instead of the simple "Loading..." text
   }
 
   return (
@@ -107,7 +92,7 @@ function App() {
       ) : (
         <>
           {/* Conditionally render NoPersonFound if no person is detected */}
-          {apiData === "no person found" ? (
+          {apiData?.error === "Person not found!" ? (
             <NoPersonFound />
           ) : (
             <>
