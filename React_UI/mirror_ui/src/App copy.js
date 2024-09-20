@@ -34,50 +34,40 @@ function App() {
   const callPythonScript = async () => {
     try {
       // Call the Python backend
-      // Set loading to true after calling the Python script
-      const response = await fetch('http://127.0.0.1:5000/init');
-      if (response.ok) {
-        const result = await response.json();
+      const response = await fetch('http://127.0.0.1:5000/run-script');
+      const result = await response.json();
+
+      setLoading(true); // Set loading to true after calling the Python script
+      
+      // Simulate a delay of 12 seconds after the response
+      setTimeout(() => {
         setLoading(false); // Stop loading after 12 seconds
-        setShowCaptureScreen(true);
-      } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+        setApiData(result); // Update the UI with the new data
+        console.log("Finished running Python backend");
+      }, 12000);
     } catch (error) {
       console.error("Failed to call Python script:", error);
       setLoading(false); // Stop loading if there's an error
     }
   };
 
-  // This function gets called after the "3, 2, 1, Smile!" countdown ends
-  const capture_int = () => {
-    setLoading(true); 
-    callPythonScript();
+  // Handle the capture action triggered by the right arrow key
+  const handleCapture = () => {
+    console.log("Right arrow key pressed - starting capture");
+    setShowCaptureScreen(true); // Show the capture screen when the right arrow key is pressed
   };
 
   // This function gets called after the "3, 2, 1, Smile!" countdown ends
-  const capture = async () => {
-    try {
-    setShowCaptureScreen(false);
-    setLoading(true); 
-    const response = await fetch('http://127.0.0.1:5000/run_script');
-      if (response.ok) {
-        const result = await response.json();
-        setLoading(false); // 更新加载状态
-      } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Failed to call Python script:", error);
-      setLoading(false); // Stop loading if there's an error
-    }
+  const onCaptureComplete = () => {
+    setShowCaptureScreen(false); // Hide the capture screen and show the main content
+    callPythonScript(); // Call the Python script after the capture
   };
 
   // Use useEffect to listen for keyboard events
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.keyCode === 39) { // Right arrow key code is 39
-        capture_int();
+        handleCapture();
       }
     };
 
@@ -98,7 +88,7 @@ function App() {
   return (
     <div className="app">
       {showCaptureScreen ? (
-        <CaptureScreen onCapture={capture} />
+        <CaptureScreen onCapture={onCaptureComplete} />
       ) : (
         <>
           {/* Conditionally render NoPersonFound if no person is detected */}
