@@ -32,10 +32,10 @@ const DottedCircleLoader = ({ loading }) => {
       <div style={styles.container}>
         Loading...
         <div style={styles.loader}>
-          <div style={{ ...styles.dot, top: '0', left: '50%', transform: 'translateX(-50%)' }} />
-          <div style={{ ...styles.dot, bottom: '0', left: '50%', transform: 'translateX(-50%)' }} />
-          <div style={{ ...styles.dot, left: '0', top: '50%', transform: 'translateY(-50%)' }} />
-          <div style={{ ...styles.dot, right: '0', top: '50%', transform: 'translateY(-50%)' }} />
+          <div style={{ ...styles.dot, top: '0%', left: '50%', transform: 'translate(-50%, -50%)' }} />
+          <div style={{ ...styles.dot, top: '50%', left: '0%', transform: 'translate(-50%, -50%)' }} />
+          <div style={{ ...styles.dot, top: '50%', left: '100%', transform: 'translate(-50%, -50%)' }} />
+          <div style={{ ...styles.dot, top: '100%', left: '50%', transform: 'translate(-50%, -50%)' }} />
         </div>
       </div>
     );
