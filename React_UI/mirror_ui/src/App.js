@@ -94,34 +94,35 @@ function App() {
   if (loading) {
     return <DottedCircleLoader loading={loading} />; // Use the DottedCircleLoader instead of the simple "Loading..." text
   }
+  if (!loading) {
+    return (
+      <div className="app">
+        {showCaptureScreen ? (
+          <CaptureScreen onCapture={capture} />
+        ) : (
+          <>
+            {/* Conditionally render NoPersonFound if no person is detected */}
+            {apiData?.error === "Person not found!" ? (
+              <NoPersonFound />
+            ) : (
+              <>
+                {/* Display the heart with likes */}
+                {apiData && <HeartWithNumber likes={apiData.likes} />}
 
-  return (
-    <div className="app">
-      {showCaptureScreen ? (
-        <CaptureScreen onCapture={capture} />
-      ) : (
-        <>
-          {/* Conditionally render NoPersonFound if no person is detected */}
-          {apiData?.error === "Person not found!" ? (
-            <NoPersonFound />
-          ) : (
-            <>
-              {/* Display the heart with likes */}
-              {apiData && <HeartWithNumber likes={apiData.likes} />}
+                {/* Display the image from the JSON file */}
+                {apiData && <ImageDisplay imageUrl={apiData.image} />}
 
-              {/* Display the image from the JSON file */}
-              {apiData && <ImageDisplay imageUrl={apiData.image} />}
+                {/* Display the comment section */}
+                {apiData && <CommentSection commentsData={apiData} />}
+              </>
+            )}
 
-              {/* Display the comment section */}
-              {apiData && <CommentSection commentsData={apiData} />}
-            </>
-          )}
-
-          {/* No capture button now, as it's triggered by the right arrow key */}
-        </>
-      )}
-    </div>
-  );
+            {/* No capture button now, as it's triggered by the right arrow key */}
+          </>
+        )}
+      </div>
+    );
+ }
 }
 
 export default App;
