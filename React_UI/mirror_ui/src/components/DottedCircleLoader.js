@@ -8,7 +8,7 @@ const styles = {
     height: '100vh',
     backgroundColor: '#1e272e',
     color: '#ecf0f1',
-    fontSize: '4rem',
+    fontSize: '3rem',
   },
   loader: {
     display: 'inline-block',
